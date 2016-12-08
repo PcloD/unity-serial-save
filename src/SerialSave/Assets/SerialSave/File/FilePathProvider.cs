@@ -2,7 +2,7 @@ namespace AndrewLord.UnitySerialSave {
     
   using UnityEngine;
 
-  internal class FilePathProvider {
+  public class FilePathProvider {
 
     private const string FileExtension = ".dat";
     private const string TempFileSuffix = ".temp";
@@ -10,7 +10,7 @@ namespace AndrewLord.UnitySerialSave {
 
     private string filename;
 
-    internal FilePathProvider(string filename) {
+    public FilePathProvider(string filename) {
       this.filename = filename;
       FilePath = CreateFilePath();
       TempFilePath = CreateFilePath() + TempFileSuffix;
@@ -21,11 +21,11 @@ namespace AndrewLord.UnitySerialSave {
       return Application.persistentDataPath + "/" + filename + FileExtension;
     }
 
-    internal string FilePath { get; private set; }
+    public string FilePath { get; private set; }
 
-    internal string TempFilePath { get; private set; }
+    public string TempFilePath { get; private set; }
 
-    internal string BackupFilePath { get; private set; }
+    public string BackupFilePath { get; private set; }
     
   }
 }
