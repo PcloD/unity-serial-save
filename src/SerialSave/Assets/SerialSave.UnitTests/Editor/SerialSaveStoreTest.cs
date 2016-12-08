@@ -97,7 +97,7 @@ namespace AndrewLord.UnitySerialSave.UnitTests {
     }
 
     [Test]
-    public void GivenTypedSaveKeyAndValueAbsent_WhenGetValueTyped_ThenDefaultReturned() {
+    public void GivenTypedSaveKeyAndValueAbsent_WhenGetValueTyped_ThenDefaultForTypeReturned() {
       SaveKey<int> key0 = new SaveKey<int>("key0");
       persister.ReadData().Returns(new Dictionary<string, object>());
       store.Load();
@@ -105,6 +105,21 @@ namespace AndrewLord.UnitySerialSave.UnitTests {
       int actual = store.GetValue(key0);
 
       Assert.That(actual, Is.EqualTo(default(int)));
+    }
+
+    [Test]
+    public void GivenDefaultProviderWithTypedSaveKeyAndValueAbsent_WhenGetValueTyped_ThenDefaultReturned() {
+      DefaultValueProvider provider = Substitute.For<DefaultValueProvider>();
+      store = new SerialSaveStore(persister, provider);
+      SaveKey<int> key0 = new SaveKey<int>("key0");
+      persister.ReadData().Returns(new Dictionary<string, object>());
+      store.Load();
+      int expectedDefault = 5005;
+      provider.GetDefaultValue(key0.Name).Returns(expectedDefault);
+
+      int actual = store.GetValue<int>(key0);
+
+      Assert.That(actual, Is.EqualTo(expectedDefault));
     }
 
     [Test]
@@ -121,7 +136,7 @@ namespace AndrewLord.UnitySerialSave.UnitTests {
     }
 
     [Test]
-    public void GivenKeyAndValueAbsent_WhenGetValueTyped_ThenDefaultValueReturned() {
+    public void GivenKeyAndValueAbsent_WhenGetValueTyped_ThenDefaultForTypeReturned() {
       string key0 = "key0";
       persister.ReadData().Returns(new Dictionary<string, object>());
       store.Load();
@@ -129,6 +144,21 @@ namespace AndrewLord.UnitySerialSave.UnitTests {
       int actual = store.GetValue<int>(key0);
 
       Assert.That(actual, Is.EqualTo(default(int)));
+    }
+
+    [Test]
+    public void GivenDefaultProviderWithKeyAndValueAbsent_WhenGetValueTyped_ThenDefaultReturned() {
+      DefaultValueProvider provider = Substitute.For<DefaultValueProvider>();
+      store = new SerialSaveStore(persister, provider);
+      string key0 = "key0";
+      persister.ReadData().Returns(new Dictionary<string, object>());
+      store.Load();
+      int expectedDefault = 5005;
+      provider.GetDefaultValue(key0).Returns(expectedDefault);
+
+      int actual = store.GetValue<int>(key0);
+
+      Assert.That(actual, Is.EqualTo(expectedDefault));
     }
 
     [Test]
@@ -153,6 +183,21 @@ namespace AndrewLord.UnitySerialSave.UnitTests {
       object actual = store.GetValue(key0);
 
       Assert.That(actual, Is.EqualTo(null));
+    }
+
+    [Test]
+    public void GivenDefaultProviderWithKeyAndValueAbsent_WhenGetValue_ThenDefaultReturned() {
+      DefaultValueProvider provider = Substitute.For<DefaultValueProvider>();
+      store = new SerialSaveStore(persister, provider);
+      string key0 = "key0";
+      persister.ReadData().Returns(new Dictionary<string, object>());
+      store.Load();
+      string expectedDefault = "someMagicDefault";
+      provider.GetDefaultValue(key0).Returns(expectedDefault);
+
+      object actual = store.GetValue(key0);
+
+      Assert.That(actual, Is.EqualTo(expectedDefault));
     }
 
     [Test]

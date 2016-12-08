@@ -11,22 +11,45 @@ namespace AndrewLord.UnitySerialSave {
 
     private Persister persister;
     private Dictionary<string, object> savedData;
+    private DefaultValueProvider defaultValueProvider;
 
     /// <summary>
     /// Create a save store, which will persist data to disk. Data will be serialized to a file with the provided 
     /// filename.
     /// </summary>
     /// <param name="filename">The name of the file to save data to.</param>
-    public SerialSaveStore(string filename) : this(new FilePersister(filename)) {
+    public SerialSaveStore(string filename) : this(filename, null) {
+    }
+
+    /// <summary>
+    /// Create a save store, which will persist data to disk. Data will be serialized to a file with the provided 
+    /// filename. When reading values, if one is not present the default value provider will be used to get the 
+    /// default value for that key.
+    /// </summary>
+    /// <param name="filename">The name of the file to save data to.</param>
+    /// <param name="defaultValueProvider">Used to get default value for each key.</param>
+    public SerialSaveStore(string filename, DefaultValueProvider defaultValueProvider) 
+      : this(new FilePersister(filename), defaultValueProvider) {
     }
 
     /// <summary>
     /// Create a save store, which will save and load data through the provided persister. This allows you to customise 
     /// the saving and loading mechanism used.
     /// </summary>
-    /// <param name="persister"></param>
-    public SerialSaveStore(Persister persister) {
+    /// <param name="persister">Used to read and write the save data store.</param>
+    public SerialSaveStore(Persister persister) : this(persister, null) {
+    }
+
+    /// <summary>
+    /// Create a save store, which will save and load data through the provided persister. This allows you to customise 
+    /// the saving and loading mechanism used. When reading values, if one is not present the default value provider 
+    /// will be used to get the default value for that key.
+    /// </summary>
+    /// <param name="persister">Used to read and write the save data store.</param>
+    /// <param name="defaultValueProvider">Used to get default value for each key.</param>
+    public SerialSaveStore(Persister persister, DefaultValueProvider defaultValueProvider) {
       this.persister = persister;
+      this.defaultValueProvider = defaultValueProvider;
     }
 
     /// <summary>
@@ -101,7 +124,7 @@ namespace AndrewLord.UnitySerialSave {
     /// default value for the type will be returned. However, if there is a value stored for that key of a different 
     /// type, then an exception will be thrown.
     /// </summary>
-    /// <param name="name">The key to retrieve the value for.</param>
+    /// <param name="saveKey">The key to retrieve the value for.</param>
     /// <returns>The stored value.</returns>
     public T GetValue<T>(string saveKey) {
       object saveValue = GetValue(saveKey);
@@ -112,13 +135,17 @@ namespace AndrewLord.UnitySerialSave {
     }
 
     /// <summary>
-    /// Retrieve a value from the store. If the value is not present then null will be returned.
+    /// Retrieve a value from the store. If the value is not present and there is a default value provider, then the 
+    /// default value from there will be returned, else if there is no provider then null will be returned.
     /// </summary>
-    /// <param name="name">The key to retrieve the value for.</param>
+    /// <param name="saveKey">The key to retrieve the value for.</param>
     /// <returns>The stored value.</returns>
-    public object GetValue(string name) {
+    public object GetValue(string saveKey) {
       object saveValue;
-      savedData.TryGetValue(name, out saveValue);
+      savedData.TryGetValue(saveKey, out saveValue);
+      if (saveValue == null && defaultValueProvider != null) {
+        return defaultValueProvider.GetDefaultValue(saveKey);
+      }
       return saveValue;
     }
 
