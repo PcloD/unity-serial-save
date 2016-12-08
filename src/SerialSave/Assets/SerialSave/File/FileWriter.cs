@@ -3,9 +3,9 @@ namespace AndrewLord.UnitySerialSave {
   using System.IO;
   using System.Runtime.Serialization.Formatters.Binary;
 
-  class FileWriter {
+  internal class FileWriter {
 
-    public void SaveData(FilePathProvider filePathProvider, object saveData) {
+    internal void SaveData(FilePathProvider filePathProvider, object saveData) {
       bool success = WriteData(filePathProvider, saveData);
       if (success) {
         CreateIfDoesNotExist(filePathProvider.FilePath);
@@ -13,7 +13,7 @@ namespace AndrewLord.UnitySerialSave {
       }
     }
 
-    bool WriteData(FilePathProvider filePathProvider, object saveData) {
+    private bool WriteData(FilePathProvider filePathProvider, object saveData) {
       FileStream file = File.Create(filePathProvider.TempFilePath);
       try {
         BinaryFormatter writer = new BinaryFormatter();

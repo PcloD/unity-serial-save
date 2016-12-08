@@ -3,9 +3,9 @@ namespace AndrewLord.UnitySerialSave {
   using System.IO;
   using System.Runtime.Serialization.Formatters.Binary;
 
-  class FileReader {
+  internal class FileReader {
 
-    public object ReadData(FilePathProvider filePathProvider) {
+    internal object ReadData(FilePathProvider filePathProvider) {
       object loadedData = ReadFile(filePathProvider.FilePath);
       if (loadedData == null) {
         return ReadFile(filePathProvider.BackupFilePath);
