@@ -8,11 +8,7 @@ A simple save file solution for your Unity games, which will work on all platfor
 
 ## Download
 
-You can obtain SerialSave by:
-
-1. [Using this link](https://github.com/andrewlord1990/unity-serial-save/releases/download/v0.1.0/SerialSave.0.1.0.unitypackage)
-2. Downloading the latest release from the 'Releases' page
-3. Downloading the package contained within the 'release' folder in the repo
+You can obtain SerialSave by [using this link](https://github.com/andrewlord1990/unity-serial-save/releases/download/v0.1.0/SerialSave.0.1.0.unitypackage).
 
 Once you have the `unitypackage` file, you can import it into your Unity project. If your project is already open then you can simply double-click the downloaded package. Alternatively, go to `Assets -> Import Package -> Custom Package` within the Unity editor.
 
