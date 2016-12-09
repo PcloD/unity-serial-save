@@ -1,6 +1,6 @@
 # SerialSave
 
-[![Version](https://img.shields.io/badge/Version-v0.1.1-blue.svg)](https://github.com/andrewlord1990/unity-serial-save/releases/latest)
+[![Version](https://img.shields.io/badge/Version-v0.1.0-blue.svg)](https://github.com/andrewlord1990/unity-serial-save/releases/latest)
 [![Build Status](https://travis-ci.org/andrewlord1990/unity-serial-save.svg?branch=master)](https://travis-ci.org/andrewlord1990/unity-serial-save)
 [![License](https://img.shields.io/badge/license-Apache%202.0-green.svg) ](https://github.com/andrewlord1990/unity-serial-save/blob/master/LICENSE)
 
