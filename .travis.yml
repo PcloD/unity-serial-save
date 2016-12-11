@@ -13,4 +13,4 @@ script:
 - ./scripts/build.sh SerialSave && ./scripts/run-tests.sh SerialSave
 
 after_success:
-- ./scripts/export-package.sh SerialSave
+- ./scripts/export-package.sh AndrewLord SerialSave
