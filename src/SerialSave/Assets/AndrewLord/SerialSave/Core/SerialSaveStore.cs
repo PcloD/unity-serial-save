@@ -109,6 +109,15 @@ namespace AndrewLord.UnitySerialSave {
     }
 
     /// <summary>
+    /// Retrieve an accessor for a particular typed key. Through this accessor you will be able to get the stored 
+    /// value, set a new stored value and save all values.
+    /// </summary>
+    /// <returns>An accessor for a particular typed key.</returns>
+    public SaveValueAccessor<T> GetAccessor<T>(SaveKey<T> saveKey) {
+      return new SaveValueAccessor<T>(saveKey, this);
+    }
+
+    /// <summary>
     /// Retrieve a value from the store, using a typed key. The value will be returned in the correct type, using 
     /// the save key. If the value is not present then the default value for the type will be returned. However, if 
     /// there is a value stored for that key of a different type, then an exception will be thrown.

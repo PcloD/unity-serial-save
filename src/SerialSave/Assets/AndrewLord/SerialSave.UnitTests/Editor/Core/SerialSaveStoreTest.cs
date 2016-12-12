@@ -84,6 +84,17 @@ namespace AndrewLord.UnitySerialSave.UnitTests {
     }
 
     [Test]
+    public void WhenGetAccessor_ThenAccessorForSpecifiedKeyProvided() {
+      SaveKey<int> key = new SaveKey<int>("someKey");
+      store.Load();
+      store.SetValue(key, 100);
+
+      SaveValueAccessor<int> accessor = store.GetAccessor(key);
+
+      Assert.That(accessor.Get(), Is.EqualTo(100));
+    }
+
+    [Test]
     public void GivenTypedSaveKeyAndValuePresent_WhenGetValueTyped_ThenStoredValueReturned() {
       SaveKey<int> key0 = new SaveKey<int>("key0");
       Dictionary<string, object> expected = new Dictionary<string, object>();
