@@ -7,7 +7,7 @@ namespace AndrewLord.UnitySerialSave {
   /// serialization is used for persistence, so the data won't be readable by users. Persistence is performed through 
   /// an interface, so you could customise the saving and loading if you wished.
   /// </summary>
-  public class SerialSaveStore {
+  public class SerialSaveStore : SerialSaveStoreLoader, SerialSaveStoreReader, SerialSaveStoreWriter {
 
     private Persister persister;
     private Dictionary<string, object> savedData;
