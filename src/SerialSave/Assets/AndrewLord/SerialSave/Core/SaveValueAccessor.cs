@@ -1,7 +1,22 @@
+//
+// Copyright (C) 2016 Andrew Lord
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+// the License.
+//
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+// an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//
+// See the License for the specific language governing permissions and limitations under the License.
+//
 namespace AndrewLord.UnitySerialSave {
 
   /// <summary>
-  /// Rather than accessing all values through the save store, give read and write access to the value for a single 
+  /// Rather than accessing all values through the save store, give read and write access to the value for a single
   /// save key. You can also listen for value changes.
   /// </summary>
   public class SaveValueAccessor<T> {
@@ -26,7 +41,7 @@ namespace AndrewLord.UnitySerialSave {
     public delegate void ValueChangedEventHandler(T saveValue);
 
     /// <summary>
-    /// The stored value has been changed. If you set a value to the same value as it was before, then this will 
+    /// The stored value has been changed. If you set a value to the same value as it was before, then this will
     /// still be notified.
     /// </summary>
     /// <param name="saveValue">The new stored value.</param>
@@ -39,7 +54,7 @@ namespace AndrewLord.UnitySerialSave {
     public T Get() {
       return saveStore.GetValue(saveKey);
     }
-    
+
     /// <summary>
     /// Set a new stored value and notify any listeners.
     /// </summary>
@@ -64,7 +79,7 @@ namespace AndrewLord.UnitySerialSave {
     public void Save() {
       saveStore.Save();
     }
-    
+
     private void OnValueChanged(T saveValue) {
       ValueChanged(saveValue);
     }

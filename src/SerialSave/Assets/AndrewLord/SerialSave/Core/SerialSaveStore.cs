@@ -1,10 +1,25 @@
+//
+// Copyright (C) 2016 Andrew Lord
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+// the License.
+//
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+// an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//
+// See the License for the specific language governing permissions and limitations under the License.
+//
 namespace AndrewLord.UnitySerialSave {
 
   using System.Collections.Generic;
 
   /// <summary>
-  /// Store save game data values. These values are stored in memory and can be persisted to disk. Binary 
-  /// serialization is used for persistence, so the data won't be readable by users. Persistence is performed through 
+  /// Store save game data values. These values are stored in memory and can be persisted to disk. Binary
+  /// serialization is used for persistence, so the data won't be readable by users. Persistence is performed through
   /// an interface, so you could customise the saving and loading if you wished.
   /// </summary>
   public class SerialSaveStore : SerialSaveStoreLoader, SerialSaveStoreReader, SerialSaveStoreWriter {
@@ -14,7 +29,7 @@ namespace AndrewLord.UnitySerialSave {
     private DefaultValueProvider defaultValueProvider;
 
     /// <summary>
-    /// Create a save store, which will persist data to disk. Data will be serialized to a file with the provided 
+    /// Create a save store, which will persist data to disk. Data will be serialized to a file with the provided
     /// filename.
     /// </summary>
     /// <param name="filename">The name of the file to save data to.</param>
@@ -22,18 +37,18 @@ namespace AndrewLord.UnitySerialSave {
     }
 
     /// <summary>
-    /// Create a save store, which will persist data to disk. Data will be serialized to a file with the provided 
-    /// filename. When reading values, if one is not present the default value provider will be used to get the 
+    /// Create a save store, which will persist data to disk. Data will be serialized to a file with the provided
+    /// filename. When reading values, if one is not present the default value provider will be used to get the
     /// default value for that key.
     /// </summary>
     /// <param name="filename">The name of the file to save data to.</param>
     /// <param name="defaultValueProvider">Used to get default value for each key.</param>
-    public SerialSaveStore(string filename, DefaultValueProvider defaultValueProvider) 
+    public SerialSaveStore(string filename, DefaultValueProvider defaultValueProvider)
       : this(new FilePersister(filename), defaultValueProvider) {
     }
 
     /// <summary>
-    /// Create a save store, which will save and load data through the provided persister. This allows you to customise 
+    /// Create a save store, which will save and load data through the provided persister. This allows you to customise
     /// the saving and loading mechanism used.
     /// </summary>
     /// <param name="persister">Used to read and write the save data store.</param>
@@ -41,8 +56,8 @@ namespace AndrewLord.UnitySerialSave {
     }
 
     /// <summary>
-    /// Create a save store, which will save and load data through the provided persister. This allows you to customise 
-    /// the saving and loading mechanism used. When reading values, if one is not present the default value provider 
+    /// Create a save store, which will save and load data through the provided persister. This allows you to customise
+    /// the saving and loading mechanism used. When reading values, if one is not present the default value provider
     /// will be used to get the default value for that key.
     /// </summary>
     /// <param name="persister">Used to read and write the save data store.</param>
@@ -89,7 +104,7 @@ namespace AndrewLord.UnitySerialSave {
     public bool Loaded { get; private set; }
 
     /// <summary>
-    /// Load saved data from the persister, if none is found use an empty dictionary. Afterwards a loaded event is 
+    /// Load saved data from the persister, if none is found use an empty dictionary. Afterwards a loaded event is
     /// fired.
     /// </summary>
     public void Load() {
@@ -109,7 +124,7 @@ namespace AndrewLord.UnitySerialSave {
     }
 
     /// <summary>
-    /// Retrieve an accessor for a particular typed key. Through this accessor you will be able to get the stored 
+    /// Retrieve an accessor for a particular typed key. Through this accessor you will be able to get the stored
     /// value, set a new stored value and save all values.
     /// </summary>
     /// <returns>An accessor for a particular typed key.</returns>
@@ -118,8 +133,8 @@ namespace AndrewLord.UnitySerialSave {
     }
 
     /// <summary>
-    /// Retrieve a value from the store, using a typed key. The value will be returned in the correct type, using 
-    /// the save key. If the value is not present then the default value for the type will be returned. However, if 
+    /// Retrieve a value from the store, using a typed key. The value will be returned in the correct type, using
+    /// the save key. If the value is not present then the default value for the type will be returned. However, if
     /// there is a value stored for that key of a different type, then an exception will be thrown.
     /// </summary>
     /// <param name="saveKey">The typed key to retrieve the value for.</param>
@@ -129,8 +144,8 @@ namespace AndrewLord.UnitySerialSave {
     }
 
     /// <summary>
-    /// Retrieve a value from the store, which will be cast to the specified type. If the value is not present then the 
-    /// default value for the type will be returned. However, if there is a value stored for that key of a different 
+    /// Retrieve a value from the store, which will be cast to the specified type. If the value is not present then the
+    /// default value for the type will be returned. However, if there is a value stored for that key of a different
     /// type, then an exception will be thrown.
     /// </summary>
     /// <param name="saveKey">The key to retrieve the value for.</param>
@@ -144,7 +159,7 @@ namespace AndrewLord.UnitySerialSave {
     }
 
     /// <summary>
-    /// Retrieve a value from the store. If the value is not present and there is a default value provider, then the 
+    /// Retrieve a value from the store. If the value is not present and there is a default value provider, then the
     /// default value from there will be returned, else if there is no provider then null will be returned.
     /// </summary>
     /// <param name="saveKey">The key to retrieve the value for.</param>
